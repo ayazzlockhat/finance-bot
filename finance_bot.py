@@ -2,9 +2,12 @@ import discord
 from discord.ext import commands
 import yfinance as yf
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+
+if TOKEN is None:
+    raise ValueError("DISCORD_BOT_TOKEN is not set in the environment variables")
+
 # Set up the bot
 intents = discord.Intents.default()
 intents.message_content = True
@@ -53,5 +56,4 @@ async def s(ctx, symbol: str = None):
     await ctx.send(embed=embed)
 
 # Run the bot with your token
-TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 bot.run(TOKEN)
